@@ -30,9 +30,9 @@ submitBtn.addEventListener("click", (event) => {
         ])
       );
 
-      localStorage.setItem("isAuth", "true")
+   
 
-      window.open("../index.html", "_self")
+      window.open("../auth.html", "_self")
     }
 
     email.value = "";
