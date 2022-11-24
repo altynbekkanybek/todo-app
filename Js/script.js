@@ -29,6 +29,65 @@
 // const name = localStorage.getItem("name")
 // console.log(name);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 window.addEventListener("load", () => {
   if (localStorage.getItem("isAuth") === "false") {
     window.open("../register.html", "_self");
@@ -88,7 +147,7 @@ addTodo.addEventListener("click", (event) => {
 });
 
 function card(base) {
-  const template = base.map(({ title, description, image }) => {
+  const template = base.map(({ title, description, image , id}) => {
     return `
      <div class="boxes">
        <h4>${title}</h4>
@@ -101,6 +160,15 @@ function card(base) {
           ${description}
        </p>
      
+
+       <div class="btn_inline">
+          <button onclick="deleteTodo(${id})">
+            Delete
+          </button >
+          <button onclick="editTodo(${id})">
+            Edit
+          </button>
+       </div>
      </div>
     
     `
@@ -108,4 +176,37 @@ function card(base) {
 
 
   row.innerHTML = template;
+}
+
+
+function deleteTodo (id) {
+ const todo = JSON.parse(localStorage.getItem("todo"))
+
+ const filtered = todo.filter(item => item.id !== id)
+
+ localStorage.setItem("todo", JSON.stringify(filtered))
+
+ window.location.reload()
+}
+
+
+
+function editTodo (id) {
+  const todo = JSON.parse(localStorage.getItem("todo"))
+
+  const changes = todo.map(item => {
+    if (item.id === id ) {
+      return {
+        title: prompt("Title", item.title),
+        description: prompt("Description", item.description),
+        image: prompt("Image", item.image)
+      }
+    }else {
+      return item
+    }
+  })
+
+
+  localStorage.setItem("todo", JSON.stringify(changes))
+  window.location.reload()
 }
