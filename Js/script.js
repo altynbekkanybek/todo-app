@@ -89,6 +89,7 @@ addTodo.addEventListener("click", (event) => {
   } else {
     error.innerHTML = "Все поля должны быть заполнены!";
   }
+
 });
 
 
