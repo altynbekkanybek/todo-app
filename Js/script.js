@@ -29,65 +29,6 @@
 // const name = localStorage.getItem("name")
 // console.log(name);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.addEventListener("load", () => {
   if (localStorage.getItem("isAuth") === "false") {
     window.open("../register.html", "_self");
@@ -95,10 +36,16 @@ window.addEventListener("load", () => {
 });
 
 const signOut = document.querySelector(".signOut");
+const basket = document.querySelector(".basket");
 
 signOut.addEventListener("click", () => {
   localStorage.setItem("isAuth", "false");
   window.open("../register.html", "_self");
+});
+
+basket.addEventListener("click", () => {
+  localStorage.setItem("isBasket", "false");
+  window.open("../basket.html", "_self");
 });
 
 const title = document.querySelector(".title");
@@ -106,7 +53,7 @@ const description = document.querySelector(".description");
 const image = document.querySelector(".image");
 const addTodo = document.querySelector(".addTodo");
 const error = document.querySelector(".error");
-const row = document.querySelector(".row")
+const row = document.querySelector(".row");
 
 window.addEventListener("load", () => {
   if (!localStorage.getItem("todo")) {
@@ -115,14 +62,12 @@ window.addEventListener("load", () => {
     const todo = JSON.parse(localStorage.getItem("todo"));
 
     const todiesWithID = todo.map((item, index) => {
-      return  {...item, id:index };
+      return { ...item, id: index };
     });
 
     localStorage.setItem("todo", JSON.stringify(todiesWithID));
 
     const newTodo = JSON.parse(localStorage.getItem("todo"));
-
-    
     card(newTodo);
   }
 });
@@ -147,8 +92,9 @@ addTodo.addEventListener("click", (event) => {
 });
 
 function card(base) {
-  const template = base.map(({ title, description, image , id}) => {
-    return `
+  const template = base
+    .map(({ title, description, image, id }) => {
+      return `
      <div class="boxes">
        <h4>${title}</h4>
      
@@ -168,45 +114,52 @@ function card(base) {
           <button onclick="editTodo(${id})">
             Edit
           </button>
+          <button onclick="basketTodo(${id})">
+            Basket
+          </button>
        </div>
+
      </div>
     
-    `
-  }).join(" ")
-
+    `;
+    })
+    .join(" ");
 
   row.innerHTML = template;
 }
 
+function deleteTodo(id) {
+  const todo = JSON.parse(localStorage.getItem("todo"));
 
-function deleteTodo (id) {
- const todo = JSON.parse(localStorage.getItem("todo"))
+  const filtered = todo.filter((item) => item.id !== id);
 
- const filtered = todo.filter(item => item.id !== id)
+  localStorage.setItem("todo", JSON.stringify(filtered));
 
- localStorage.setItem("todo", JSON.stringify(filtered))
-
- window.location.reload()
+  window.location.reload();
 }
 
+function editTodo(id) {
+  const todo = JSON.parse(localStorage.getItem("todo"));
 
-
-function editTodo (id) {
-  const todo = JSON.parse(localStorage.getItem("todo"))
-
-  const changes = todo.map(item => {
-    if (item.id === id ) {
+  const changes = todo.map((item) => {
+    if (item.id === id) {
       return {
         title: prompt("Title", item.title),
         description: prompt("Description", item.description),
-        image: prompt("Image", item.image)
-      }
-    }else {
-      return item
+        image: prompt("Image", item.image),
+      };
+    } else {
+      return item;
     }
-  })
+  });
 
+  localStorage.setItem("todo", JSON.stringify(changes));
+  window.location.reload();
+}
 
-  localStorage.setItem("todo", JSON.stringify(changes))
-  window.location.reload()
+function basketTodo(id) {
+  const todo = JSON.parse(localStorage.getItem("todo"));
+  window.location.href = "./basket.html";
+  
+
 }

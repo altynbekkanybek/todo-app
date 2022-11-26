@@ -18,6 +18,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .navbar h1 {
@@ -25,7 +26,22 @@ header {
   font-size: 25px;
 }
 
-.navbar button {
+.navbar div {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar .basket {
+  padding: 8px 20px;
+  border-radius: 8px;
+  background-color: rgba(221, 114, 114);
+  border:0;
+  box-shadow:0px 0px 5px white;
+  color:white;
+  cursor: pointer;
+}
+
+.navbar .signOut {
   padding: 8px 20px;
   border-radius: 8px;
   background-color: rgba(221, 114, 114);
@@ -113,7 +129,14 @@ header {
 
 .btn_inline button:nth-child(1) {
   background-color: rgb(218, 108, 108);
+  color: #fff;
 }
 .btn_inline button:nth-child(2) {
   background-color: rgb(84, 89, 216);
+  color: #fff;
 }
+.btn_inline button:nth-child(3) {
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
